@@ -1,13 +1,25 @@
-#Crie um script Python que simule o sorteio da Mega-Sena. Para isso, devem ser sorteados aleatoriamente 6 números diferentes entre 1 e 50 e impressos na tela em ordem crescente.
+import tkinter as tk
+from random import sample
 
-from random import randint
-sorteio = []
-while len(sorteio) < 6:
-    num = randint(1, 50)
-    if num not in sorteio:
-        sorteio.append(num)
+def gerar_numeros():
+    numeros = sample(range(1, 61), 6)
+    numeros.sort() 
+    resultado_label.config(text=f"{', '.join(map(str, numeros))}")
 
-sorteio.sort()
+janela = tk.Tk()
+janela.title("Mega-Sena")
+janela.geometry("300x200")
 
-print("<<<<<        SORTEIO MEGA-SENA        >>>>>")
-print("Os números sorteados foram: ", sorteio)
+titulo_label = tk.Label(janela, text="Sorteador Mega-Sena", font=("Arial", 14))
+titulo_label.pack(pady=10)
+
+instrucoes_label = tk.Label(janela, text="Clique no botão para gerar os números:")
+instrucoes_label.pack()
+
+botao_sortear = tk.Button(janela, text="Sortear Números", command=gerar_numeros)
+botao_sortear.pack(pady=10)
+
+resultado_label = tk.Label(janela, text="", font=("Arial", 12), fg="green")
+resultado_label.pack(pady=10)
+
+janela.mainloop()
